@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系我们 - 明智心理培训</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">明</span>
+      明智心理培训
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我们</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="assessment.html">心理测评</a></li>
+      <li><a href="contact.html" class="active">联系我们</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>联系我们</h1>
+    <p>期待与您交流，共同探讨培训方案</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <h2>联系方式</h2>
+        <div class="contact-item">
+          <div class="contact-icon">&#128222;</div>
+          <div>
+            <h4>电话咨询</h4>
+            <p>400-XXX-XXXX（工作日 9:00-18:00）</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#128231;</div>
+          <div>
+            <h4>邮件联系</h4>
+            <p>contact@example.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#128205;</div>
+          <div>
+            <h4>办公地址</h4>
+            <p>待填写详细地址</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#128197;</div>
+          <div>
+            <h4>预约面谈</h4>
+            <p>如需当面沟通，请提前通过电话或邮件预约</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h2 style="font-size:20px;font-weight:700;color:var(--primary);margin-bottom:20px;">快速咨询</h2>
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">您的姓名 *</label>
+            <input type="text" id="name" required placeholder="请输入您的姓名">
+          </div>
+          <div class="form-group">
+            <label for="company">公司名称</label>
+            <input type="text" id="company" placeholder="请输入公司名称">
+          </div>
+          <div class="form-group">
+            <label for="email">电子邮箱 *</label>
+            <input type="email" id="email" required placeholder="请输入电子邮箱">
+          </div>
+          <div class="form-group">
+            <label for="phone">联系电话</label>
+            <input type="tel" id="phone" placeholder="请输入联系电话">
+          </div>
+          <div class="form-group">
+            <label for="interest">感兴趣的方向</label>
+            <select id="interest">
+              <option value="">请选择</option>
+              <option value="stress">压力管理与情绪调节</option>
+              <option value="communication">高情商沟通</option>
+              <option value="cognition">认知重构与思维升级</option>
+              <option value="conflict">冲突管理</option>
+              <option value="eq">情商开发</option>
+              <option value="leadership">领导力发展</option>
+              <option value="custom">定制化方案</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">留言内容</label>
+            <textarea id="message" placeholder="请描述您的培训需求、人数、时间等信息..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">提交咨询</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>明智心理培训</h3>
+        <p>专注于企业心理学应用与通用技能培训，用科学的方法论和实战的工具，帮助组织和个人实现可持续的成长。</p>
+      </div>
+      <div class="footer-col">
+        <h4>课程导航</h4>
+        <ul>
+          <li><a href="courses.html">心理学课程</a></li>
+          <li><a href="courses.html">通用技能课程</a></li>
+          <li><a href="assessment.html">心理测评</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于我们</h4>
+        <ul>
+          <li><a href="about.html">企业简介</a></li>
+          <li><a href="about.html">培训理念</a></li>
+          <li><a href="contact.html">联系方式</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul>
+          <li>电话：400-XXX-XXXX</li>
+          <li>邮箱：contact@example.com</li>
+          <li>地址：待填写</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 明智心理培训 版权所有
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalText = btn.textContent;
+  btn.textContent = '已收到，我们会尽快回复！';
+  btn.style.background = '#38a169';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</body>
+</html>

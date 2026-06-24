@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>压力自测 - 明智心理培训</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">明</span>
+      明智心理培训
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我们</a></li>
+      <li><a href="courses.html">课程中心</a></li>
+      <li><a href="assessment.html" class="active">心理测评</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>压力知觉自测</h1>
+    <p>基于 PSS-4 国际标准量表，4 道题快速了解你的压力状态</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="assessment-container">
+
+      <div class="assessment-intro">
+        <h2>压力知觉量表 (PSS-4)</h2>
+        <p>本测评基于国际通用的知觉压力量表（Perceived Stress Scale）精简版，通过 4 个问题评估你在过去一个月中的主观压力感受。请根据你的真实情况作答，结果仅为你个人参考。</p>
+      </div>
+
+      <div id="assessment-form" class="assessment-form">
+        <div id="questions-container"></div>
+        <button id="submit-assessment" class="submit-btn" disabled>请完成全部 4 道题</button>
+      </div>
+
+      <div id="result-section" class="result-section">
+        <div class="result-card">
+          <div id="result-score" class="result-score">0 / 16</div>
+          <div id="result-title" class="result-title"></div>
+          <div id="result-desc" class="result-desc"></div>
+          <div class="result-tips">
+            <h4>个性化建议</h4>
+            <ul id="result-tips-list"></ul>
+          </div>
+          <button id="retry-btn" class="retry-btn">重新测试</button>
+        </div>
+
+        <div style="margin-top:32px; text-align:center;">
+          <p style="font-size:14px;color:#a0aec0;margin-bottom:16px;">想系统学习压力管理技能？</p>
+          <a href="courses.html" class="btn btn-primary">查看压力管理课程</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>明智心理培训</h3>
+        <p>专注于企业心理学应用与通用技能培训，用科学的方法论和实战的工具，帮助组织和个人实现可持续的成长。</p>
+      </div>
+      <div class="footer-col">
+        <h4>课程导航</h4>
+        <ul>
+          <li><a href="courses.html">心理学课程</a></li>
+          <li><a href="courses.html">通用技能课程</a></li>
+          <li><a href="assessment.html">心理测评</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于我们</h4>
+        <ul>
+          <li><a href="about.html">企业简介</a></li>
+          <li><a href="about.html">培训理念</a></li>
+          <li><a href="contact.html">联系方式</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul>
+          <li>电话：400-XXX-XXXX</li>
+          <li>邮箱：contact@example.com</li>
+          <li>地址：待填写</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 明智心理培训 版权所有
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/assessment.js"></script>
+</body>
+</html>

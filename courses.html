@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程中心 - 明智心理培训</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-icon">明</span>
+      明智心理培训
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我们</a></li>
+      <li><a href="courses.html" class="active">课程中心</a></li>
+      <li><a href="assessment.html">心理测评</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>课程中心</h1>
+    <p>从心理学应用到通用技能，系统化提升组织能力</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">全部课程</button>
+      <button class="filter-btn" data-filter="psychology">心理学类</button>
+      <button class="filter-btn" data-filter="skill">通用技能类</button>
+    </div>
+
+    <div class="courses-grid" id="courses-grid">
+
+      <div class="course-card" data-category="psychology">
+        <div class="course-card-img stress">
+          <span class="course-card-badge">心理学</span>
+          &#127777;
+        </div>
+        <div class="course-card-body">
+          <h3>压力管理与情绪调节</h3>
+          <p>理解压力的生理心理机制，掌握 CBT 认知重构、正念减压、时间管理等实用工具，建立个人压力防护体系。</p>
+          <div class="course-meta">
+            <span>&#9200; 1 天（7小时）</span>
+            <span>&#128101; 20-50 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="skill">
+        <div class="course-card-img comm">
+          <span class="course-card-badge">通用技能</span>
+          &#128172;
+        </div>
+        <div class="course-card-body">
+          <h3>高情商沟通与影响力</h3>
+          <p>深入沟通中的心理机制，学习非暴力沟通四步法、积极倾听、向上管理与跨部门协作沟通策略。</p>
+          <div class="course-meta">
+            <span>&#9200; 1-2 天</span>
+            <span>&#128101; 20-50 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="psychology">
+        <div class="course-card-img psych">
+          <span class="course-card-badge">心理学</span>
+          &#129504;
+        </div>
+        <div class="course-card-body">
+          <h3>认知重构与思维升级</h3>
+          <p>识别常见的认知偏差和限制性信念，学习认知重构技术，建立成长型思维，提升问题解决与决策质量。</p>
+          <div class="course-meta">
+            <span>&#9200; 1 天</span>
+            <span>&#128101; 20-40 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="skill">
+        <div class="course-card-img skill">
+          <span class="course-card-badge">通用技能</span>
+          &#128736;
+        </div>
+        <div class="course-card-body">
+          <h3>冲突管理与协作共赢</h3>
+          <p>理解冲突的心理根源，掌握 TKI 五种冲突处理模式，学习建设性冲突转化与团队协作的高效方法。</p>
+          <div class="course-meta">
+            <span>&#9200; 1 天</span>
+            <span>&#128101; 20-40 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="psychology">
+        <div class="course-card-img psych">
+          <span class="course-card-badge">心理学</span>
+          &#128150;
+        </div>
+        <div class="course-card-body">
+          <h3>情商开发与自我觉察</h3>
+          <p>系统提升情绪感知、理解、表达与调节能力，通过自我觉察练习和情境模拟强化情商肌肉。</p>
+          <div class="course-meta">
+            <span>&#9200; 1 天</span>
+            <span>&#128101; 20-50 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="skill">
+        <div class="course-card-img comm">
+          <span class="course-card-badge">通用技能</span>
+          &#128101;
+        </div>
+        <div class="course-card-body">
+          <h3>新经理角色转型与领导力</h3>
+          <p>帮助新晋管理者完成从个人贡献者到团队领导者的心智转变，掌握授权、激励、反馈等核心管理技能。</p>
+          <div class="course-meta">
+            <span>&#9200; 2 天</span>
+            <span>&#128101; 15-30 人</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2>需要定制化培训方案？</h2>
+    <p>我们可以根据企业的具体需求，量身定制课程内容和培训形式</p>
+    <a href="contact.html" class="btn btn-outline btn-lg">定制方案咨询</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>明智心理培训</h3>
+        <p>专注于企业心理学应用与通用技能培训，用科学的方法论和实战的工具，帮助组织和个人实现可持续的成长。</p>
+      </div>
+      <div class="footer-col">
+        <h4>课程导航</h4>
+        <ul>
+          <li><a href="courses.html">心理学课程</a></li>
+          <li><a href="courses.html">通用技能课程</a></li>
+          <li><a href="assessment.html">心理测评</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于我们</h4>
+        <ul>
+          <li><a href="about.html">企业简介</a></li>
+          <li><a href="about.html">培训理念</a></li>
+          <li><a href="contact.html">联系方式</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul>
+          <li>电话：400-XXX-XXXX</li>
+          <li>邮箱：contact@example.com</li>
+          <li>地址：待填写</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 明智心理培训 版权所有
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+
+    const filter = this.getAttribute('data-filter');
+    document.querySelectorAll('.course-card').forEach(card => {
+      if (filter === 'all' || card.getAttribute('data-category') === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
