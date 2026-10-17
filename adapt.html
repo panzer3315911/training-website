@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理适应自评表</title>
+<style>
+  /* ===== 全局重置 ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background: #F5F7FA;
+    color: #2D3436;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== 主容器 ===== */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(27,58,92,0.06);
+  }
+
+  /* ===== 第1屏：标题区 ===== */
+  .hero {
+    background: linear-gradient(135deg, #1B3A5C 0%, #2C5F8A 50%, #1B3A5C 100%);
+    color: #FFFFFF;
+    padding: 48px 28px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-subtitle {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.78);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== 第2屏：指导语区 ===== */
+  .instructions {
+    padding: 32px 24px;
+  }
+  .instructions-card {
+    background: #F0F4FB;
+    border-radius: 12px;
+    padding: 24px 20px;
+    border-left: 4px solid #2C5F8A;
+  }
+  .instructions-card h3 {
+    font-size: 1rem;
+    color: #1B3A5C;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .instructions-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: #2C5F8A;
+    border-radius: 50%;
+  }
+  .instructions-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  /* ===== 第3屏：问卷区 ===== */
+  .quiz {
+    padding: 0 24px 32px;
+  }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .quiz-header h2 {
+    font-size: 1.15rem;
+    color: #1B3A5C;
+  }
+  .progress-text {
+    font-size: 0.82rem;
+    color: #888;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 5px;
+    background: #E8EEF5;
+    border-radius: 5px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2C5F8A, #4A90D9);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  /* 题目项 */
+  .question-item {
+    margin-bottom: 22px;
+    padding: 18px 16px 16px;
+    background: #FAFBFC;
+    border-radius: 10px;
+    border: 1px solid #EEF1F5;
+    transition: all 0.25s ease;
+  }
+  .question-item.answered {
+    border-color: #C5D8EC;
+    background: #F6F9FD;
+  }
+  .question-item.incomplete {
+    border-color: #FFE0D0;
+    background: #FFFAF6;
+    animation: shake 0.5s ease;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+  .question-num {
+    display: inline-block;
+    width: 22px; height: 22px;
+    line-height: 22px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FFF;
+    background: #2C5F8A;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-right: 6px;
+  }
+  .question-text {
+    font-size: 0.92rem;
+    color: #2D3436;
+    line-height: 1.6;
+  }
+
+  /* 量表选项组 */
+  .scale-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 2px;
+  }
+  .scale-option {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .scale-option input { display: none; }
+  .scale-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    margin: 0 auto 5px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #888;
+    background: #FFF;
+    border: 2px solid #DDE3EA;
+    transition: all 0.2s ease;
+  }
+  .scale-option:hover .scale-circle {
+    border-color: #4A90D9;
+    color: #4A90D9;
+  }
+  .scale-option input:checked + .scale-circle {
+    background: #2C5F8A;
+    border-color: #2C5F8A;
+    color: #FFF;
+    box-shadow: 0 3px 10px rgba(44,95,138,0.3);
+  }
+  .scale-label {
+    display: block;
+    font-size: 0.62rem;
+    line-height: 1.25;
+    color: #AAA;
+    transition: color 0.2s;
+  }
+  .scale-option input:checked ~ .scale-label {
+    color: #2C5F8A;
+    font-weight: 600;
+  }
+
+  /* 提交按钮 */
+  .submit-section {
+    text-align: center;
+    padding: 8px 0 40px;
+  }
+  .btn-submit {
+    display: inline-block;
+    padding: 15px 52px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFF;
+    background: linear-gradient(135deg, #1B3A5C, #2C5F8A);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(27,58,92,0.25);
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(27,58,92,0.35);
+  }
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  /* ===== 第4屏：结果区 ===== */
+  .results {
+    display: none;
+    padding: 0 24px 48px;
+  }
+  .results.show { display: block; }
+
+  .result-header {
+    text-align: center;
+    padding: 32px 16px 24px;
+    border-bottom: 1px solid #EEF1F5;
+    margin-bottom: 24px;
+  }
+  .result-header h2 {
+    font-size: 1.4rem;
+    color: #1B3A5C;
+    margin-bottom: 6px;
+  }
+  .result-header .score-big {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #2C5F8A;
+    line-height: 1;
+    margin: 8px 0 4px;
+  }
+  .result-header .score-label {
+    font-size: 0.9rem;
+    color: #888;
+  }
+
+  /* 区间定位条 */
+  .spectrum-section {
+    margin: 20px 0 24px;
+  }
+  .spectrum-title {
+    font-size: 0.82rem;
+    color: #888;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .spectrum-bar {
+    position: relative;
+    height: 14px;
+    background: linear-gradient(90deg,
+      #E74C3C 0%, #E74C3C 50%,
+      #E9A23B 50%, #E9A23B 75%,
+      #27AE60 75%, #27AE60 100%
+    );
+    border-radius: 7px;
+    margin-bottom: 30px;
+  }
+  .spectrum-marker {
+    position: absolute;
+    top: -7px;
+    width: 28px; height: 28px;
+    background: #FFF;
+    border: 3px solid #1B3A5C;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+  }
+  .spectrum-labels {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    margin-top: 4px;
+  }
+  .spectrum-label {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+  .spectrum-label .zone-name {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 1px;
+  }
+  .spectrum-label .zone-range {
+    display: block;
+    font-size: 0.62rem;
+    color: #999;
+  }
+  .spectrum-label .zone-tag {
+    display: block;
+    font-size: 0.6rem;
+    color: #AAA;
+  }
+  .spectrum-tick {
+    position: absolute;
+    top: -30px;
+    width: 2px;
+    height: 30px;
+    background: #1B3A5C;
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+  .spectrum-tick-score {
+    position: absolute;
+    top: -44px;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1B3A5C;
+  }
+
+  /* 结果卡片 */
+  .result-card {
+    background: linear-gradient(135deg, #F0F4FB, #E8F0FE);
+    border-radius: 14px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #2C5F8A;
+  }
+  .result-card h3 {
+    font-size: 1.05rem;
+    color: #1B3A5C;
+    margin-bottom: 10px;
+  }
+  .result-card .category-tag {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #FFF;
+    margin-bottom: 12px;
+  }
+  .tag-weak { background: #E74C3C; }
+  .tag-average { background: #E9A23B; }
+  .tag-good { background: #27AE60; }
+  .result-card .interpretation {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  /* 维度分析 */
+  .dim-section {
+    background: #FFF;
+    border: 1px solid #EEF1F5;
+    border-radius: 14px;
+    padding: 20px 18px;
+    margin-bottom: 20px;
+  }
+  .dim-section h3 {
+    font-size: 1rem;
+    color: #1B3A5C;
+    margin-bottom: 4px;
+  }
+  .dim-section .dim-sub {
+    font-size: 0.78rem;
+    color: #999;
+    margin-bottom: 16px;
+  }
+  .dim-row {
+    margin-bottom: 16px;
+  }
+  .dim-row:last-child { margin-bottom: 0; }
+  .dim-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .dim-name {
+    font-size: 0.86rem;
+    color: #444;
+    font-weight: 500;
+  }
+  .dim-score {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 600;
+  }
+  .dim-score .weak-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: #FFF;
+    background: #E74C3C;
+    border-radius: 10px;
+    vertical-align: middle;
+  }
+  .dim-bar-bg {
+    height: 8px;
+    background: #EEF1F5;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .dim-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #2C5F8A, #4A90D9);
+    transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 0%;
+  }
+  .dim-bar-fill.weak {
+    background: linear-gradient(90deg, #E88B7A, #E74C3C);
+  }
+  .dim-advice {
+    font-size: 0.78rem;
+    color: #8A6D3B;
+    background: #FFFBF0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    line-height: 1.6;
+    display: none;
+  }
+  .dim-advice.show { display: block; }
+
+  /* 预警卡片 */
+  .warning-section {
+    margin-bottom: 20px;
+  }
+  .warning-card {
+    background: #FEF6F5;
+    border: 1px solid #F5D5D0;
+    border-left: 4px solid #E74C3C;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .warning-card h4 {
+    font-size: 0.88rem;
+    color: #C0392B;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .warning-card h4::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #FFF;
+    background: #E74C3C;
+    border-radius: 50%;
+  }
+  .warning-card p {
+    font-size: 0.82rem;
+    color: #7A5C58;
+    line-height: 1.65;
+  }
+
+  /* 提示区域 */
+  .tip-card {
+    background: #FFFBF0;
+    border: 1px solid #F0E4C8;
+    border-radius: 10px;
+    padding: 18px 16px;
+    margin-bottom: 20px;
+  }
+  .tip-card h4 {
+    font-size: 0.88rem;
+    color: #B8860B;
+    margin-bottom: 6px;
+  }
+  .tip-card p {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.7;
+  }
+
+  /* 重新测评按钮 */
+  .btn-retry {
+    display: block;
+    margin: 0 auto;
+    padding: 13px 40px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #2C5F8A;
+    background: #FFF;
+    border: 2px solid #2C5F8A;
+    border-radius: 30px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+  .btn-retry:hover {
+    background: #F0F4FB;
+  }
+
+  /* ===== 页脚 ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.75rem;
+    color: #BBB;
+    border-top: 1px solid #F0F2F5;
+    margin-top: 20px;
+  }
+
+  /* ===== 响应式微调 ===== */
+  @media (max-width: 420px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 1.45rem; }
+    .scale-circle { width: 32px; height: 32px; font-size: 0.74rem; }
+    .scale-label { font-size: 0.56rem; }
+    .question-item { padding: 14px 12px 12px; }
+    .dim-name { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== 第1屏：标题区 ===== -->
+  <section class="hero">
+    <h1>心理适应自评表</h1>
+    <p class="hero-subtitle">了解自身外派心理适应资源与薄弱点</p>
+  </section>
+
+  <!-- ===== 第2屏：指导语 ===== -->
+  <section class="instructions" id="instructions">
+    <div class="instructions-card">
+      <h3>使用说明</h3>
+      <p>本表用于帮助学员了解自身外派心理适应资源与薄弱点，<strong>不是心理诊断工具</strong>，结果仅供自我觉察和培训师调整内容使用。</p>
+      <p>请匿名填写，按<strong>第一反应</strong>作答，约 5 分钟完成。</p>
+    </div>
+  </section>
+
+  <!-- ===== 第3屏：问卷区 ===== -->
+  <section class="quiz" id="quiz">
+    <div class="quiz-header">
+      <h2>测评问卷</h2>
+      <span class="progress-text">已完成 <span id="answeredCount">0</span>/10 题</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <form id="quizForm">
+      <!-- Q1 -->
+      <div class="question-item" data-q="1">
+        <span class="question-num">1</span>
+        <div class="question-text">面对巴基斯坦安全形势和生活中不确定的变化，我通常能保持相对平静，不会反复陷入最坏设想。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q1" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q1" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q1" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q1" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q1" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-item" data-q="2">
+        <span class="question-num">2</span>
+        <div class="question-text">当计划被打乱或信息不明确时，我仍能先处理眼前能做的事。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q2" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q2" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q2" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q2" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q2" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-item" data-q="3">
+        <span class="question-num">3</span>
+        <div class="question-text">到巴基斯坦后，我知道至少有一位可以坦率聊压力、而不只是谈工作的同伴或同事。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q3" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q3" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q3" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q3" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q3" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-item" data-q="4">
+        <span class="question-num">4</span>
+        <div class="question-text">遇到困难时，我愿意主动向同事、项目心理负责人或 EAP 求助。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q4" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q4" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q4" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q4" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q4" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-item" data-q="5">
+        <span class="question-num">5</span>
+        <div class="question-text">过去经历工作调动、异地生活或重大变化时，我大多能在一段时间后恢复稳定。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q5" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q5" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q5" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q5" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q5" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-item" data-q="6">
+        <span class="question-num">6</span>
+        <div class="question-text">我有一套自己用过且有效的减压方法（如运动、呼吸练习、写下来、找人聊）。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q6" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q6" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q6" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q6" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q6" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q7 - 反向计分 -->
+      <div class="question-item" data-q="7">
+        <span class="question-num">7</span>
+        <div class="question-text">想到未来 3—5 年不能常伴家人，我会持续感到愧疚，甚至无法安心工作。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q7" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q7" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q7" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q7" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q7" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="question-item" data-q="8">
+        <span class="question-num">8</span>
+        <div class="question-text">我能与家人约定相对稳定的联系节律，而不是一有空就反复确认家里情况。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q8" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q8" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q8" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q8" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q8" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="question-item" data-q="9">
+        <span class="question-num">9</span>
+        <div class="question-text">最近一个月（含准备外派期间），我大部分时间睡眠尚可、情绪基本稳定，能正常投入工作和生活。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q9" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q9" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q9" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q9" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q9" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="question-item" data-q="10">
+        <span class="question-num">10</span>
+        <div class="question-text">即使外派期间出现心理困扰，我也认为这是可以处理的事，而不是"我不适合外派"的证明。</div>
+        <div class="scale-group">
+          <label class="scale-option"><input type="radio" name="q10" value="1"><span class="scale-circle">1</span><span class="scale-label">完全不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q10" value="2"><span class="scale-circle">2</span><span class="scale-label">比较不符合</span></label>
+          <label class="scale-option"><input type="radio" name="q10" value="3"><span class="scale-circle">3</span><span class="scale-label">不确定</span></label>
+          <label class="scale-option"><input type="radio" name="q10" value="4"><span class="scale-circle">4</span><span class="scale-label">比较符合</span></label>
+          <label class="scale-option"><input type="radio" name="q10" value="5"><span class="scale-circle">5</span><span class="scale-label">完全符合</span></label>
+        </div>
+      </div>
+
+      <div class="submit-section">
+        <button type="button" class="btn-submit" id="btnSubmit" onclick="submitQuiz()">提交测评</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===== 第4屏：结果区 ===== -->
+  <section class="results" id="results">
+    <div class="result-header">
+      <h2>测评结果</h2>
+      <div class="score-big" id="scoreTotal">—</div>
+      <div class="score-label">心理适应资源总分（满分 50 分）</div>
+    </div>
+
+    <!-- 区间定位条 -->
+    <div class="spectrum-section">
+      <div class="spectrum-title">你的整体心理适应水平</div>
+      <div class="spectrum-bar">
+        <div class="spectrum-marker" id="spectrumMarker" style="left: 0%;"></div>
+      </div>
+      <!-- 刻度标注 -->
+      <div style="position:relative;height:18px;width:100%;margin-bottom:8px;">
+        <span class="spectrum-tick" style="left:0%;"></span>
+        <span class="spectrum-tick-score" style="left:0%;">10</span>
+        <span class="spectrum-tick" style="left:50%;"></span>
+        <span class="spectrum-tick-score" style="left:50%;">30</span>
+        <span class="spectrum-tick" style="left:75%;"></span>
+        <span class="spectrum-tick-score" style="left:75%;">40</span>
+        <span class="spectrum-tick" style="left:100%;"></span>
+        <span class="spectrum-tick-score" style="left:100%;">50</span>
+      </div>
+      <!-- 区间标签 -->
+      <div class="spectrum-labels">
+        <span class="spectrum-label" style="left:25%;">
+          <span class="zone-name">资源薄弱</span>
+          <span class="zone-range">10 - 29 分</span>
+          <span class="zone-tag">需个别跟进</span>
+        </span>
+        <span class="spectrum-label" style="left:62.5%;">
+          <span class="zone-name">总体一般</span>
+          <span class="zone-range">30 - 39 分</span>
+          <span class="zone-tag">关注薄弱维度</span>
+        </span>
+        <span class="spectrum-label" style="left:87.5%;">
+          <span class="zone-name">资源较好</span>
+          <span class="zone-range">40 - 50 分</span>
+          <span class="zone-tag">稳定力量</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- 结果解读卡片 -->
+    <div class="result-card" id="resultCard"></div>
+
+    <!-- 维度分析 -->
+    <div class="dim-section">
+      <h3>维度分析</h3>
+      <div class="dim-sub">每维度 2 题，满分 10 分。≤6 分提示为需优先补强的资源短板。</div>
+      <div id="dimList"></div>
+    </div>
+
+    <!-- 预警提示 -->
+    <div class="warning-section" id="warningSection" style="display:none;"></div>
+
+    <!-- 暖心提示 -->
+    <div class="tip-card" id="tipCard"></div>
+
+    <button class="btn-retry" onclick="retryQuiz()">重新测评</button>
+  </section>
+
+  <!-- ===== 页脚 ===== -->
+  <div class="footer">
+    本测评仅供自我觉察参考，不作心理诊断依据
+  </div>
+
+</div>
+
+<script>
+// ===== 配置 =====
+const TOTAL_ITEMS = 10;
+const REVERSE_ITEMS = [7];              // 反向计分题（5点量表：6 - 原始分）
+const DIMENSIONS = [
+  { key: 'tolerance', name: '不确定性容忍度',     items: [1, 2] },
+  { key: 'support',   name: '社交支持与求助',     items: [3, 4] },
+  { key: 'coping',    name: '既往应对经验与技能', items: [5, 6] },
+  { key: 'family',    name: '家庭牵挂与分离应对', items: [7, 8] }
+];
+
+// 反向计分（5 点量表）
+function convertScore(qNum, raw) {
+  return REVERSE_ITEMS.indexOf(qNum) !== -1 ? (6 - raw) : raw;
+}
+
+// ===== 进度跟踪 =====
+function updateProgress() {
+  const answeredUnique = new Set();
+  document.querySelectorAll('#quizForm input[type="radio"]:checked').forEach(r => {
+    answeredUnique.add(r.name);
+  });
+  const count = answeredUnique.size;
+  document.getElementById('answeredCount').textContent = count;
+  document.getElementById('progressFill').style.width = (count / TOTAL_ITEMS * 100) + '%';
+
+  document.querySelectorAll('.question-item').forEach(item => {
+    const qNum = item.dataset.q;
+    const answered = document.querySelector('input[name="q' + qNum + '"]:checked');
+    if (answered) {
+      item.classList.add('answered');
+      item.classList.remove('incomplete');
+    }
+  });
+}
+
+document.querySelectorAll('#quizForm input[type="radio"]').forEach(input => {
+  input.addEventListener('change', function() {
+    updateProgress();
+    const item = this.closest('.question-item');
+    item.classList.remove('incomplete');
+  });
+});
+
+// ===== 结果解读数据 =====
+const interpretations = {
+  weak: {
+    category: '适应资源相对薄弱',
+    tagClass: 'tag-weak',
+    text: '你的心理适应资源目前相对薄弱。这并不意味着"不适合外派"，而是提示在踏上这段旅程前，有若干方面值得获得更多准备与支持。建议在培训后主动与 EAP 或项目心理负责人做一次个别沟通，为自己搭建更稳固的支持系统。<strong>求助是一种能力，而非软弱。</strong>'
+  },
+  average: {
+    category: '心理适应资源总体一般',
+    tagClass: 'tag-average',
+    text: '你的心理适应资源总体处于一般水平。在某些方面你已有不错的储备，但也存在一些相对薄弱的环节（见下方维度分析）。这些薄弱点并非"问题"，而是培训中值得优先练习的方向。有针对性地补强，往往能带来明显的提升。'
+  },
+  good: {
+    category: '心理适应资源较好',
+    tagClass: 'tag-good',
+    text: '你的心理适应资源整体较好。面对不确定变化与异地生活的挑战，你拥有相对稳定的内在支撑，也较善于调动身边的支持。在同伴守护（Peer Support）中，你很可能就是那股可靠的稳定力量。建议继续保持已有做法，同时留意长期外派中可能累积的疲劳，定期自我关照。'
+  }
+};
+
+const dimAdvice = {
+  tolerance: '面对不确定时容易反复陷入最坏设想。可练习"担忧检验"：把担心写下来，区分"可行动"与"不可控"的部分，把精力放回当下可控之事。',
+  support:   '支持的可得性与求助意愿偏低。建议主动认识 1—2 位可以坦率聊压力的同伴，从一次小小的求助开始，逐步建立"求助是能力"的体验。',
+  coping:    '尚未形成稳定有效的减压方法。可以回顾过往成功应对变化的经历，梳理出属于自己的"减压工具箱"（运动、呼吸、书写、倾诉等），并固定练习。',
+  family:    '对家庭的牵挂与分离焦虑较重。可尝试与家人约定相对稳定的联系节律，减少"反复确认"带来的消耗，同时练习对愧疚感的认知重构。'
+};
+
+const tips = {
+  weak: '薄弱不等于不合格。你此刻看到自己的短板，本身就是一次重要的自我觉察。接下来一周，可以先从最容易的一个维度入手，做一件小小的、可完成的事，让"我能应对"的体验开始累积。',
+  average: '你已具备一定的基础。建议把注意力放在下方标注"需补强"的维度上——补齐最短的那块木板，往往比拉长最长的更有效。',
+  good: '你的资源储备是你的优势。将它转化为影响力吧——在同伴守护中，你的一句"我懂，我们一起想办法"可能就是别人最重要的支撑。同时也别忘了，稳定的人也需要被关照。'
+};
+
+// ===== 提交测评 =====
+function submitQuiz() {
+  let allAnswered = true;
+  const incompleteItems = [];
+
+  for (let i = 1; i <= TOTAL_ITEMS; i++) {
+    const selected = document.querySelector('input[name="q' + i + '"]:checked');
+    if (!selected) {
+      allAnswered = false;
+      incompleteItems.push(i);
+    }
+  }
+
+  if (!allAnswered) {
+    incompleteItems.forEach(qNum => {
+      const item = document.querySelector('.question-item[data-q="' + qNum + '"]');
+      item.classList.add('incomplete');
+      setTimeout(() => item.classList.remove('incomplete'), 600);
+    });
+    const firstIncomplete = document.querySelector('.question-item[data-q="' + incompleteItems[0] + '"]');
+    firstIncomplete.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // 读取原始分
+  const raw = {};
+  for (let i = 1; i <= TOTAL_ITEMS; i++) {
+    raw[i] = parseInt(document.querySelector('input[name="q' + i + '"]:checked').value);
+  }
+
+  // 计算总分（转换后）
+  let totalScore = 0;
+  for (let i = 1; i <= TOTAL_ITEMS; i++) {
+    totalScore += convertScore(i, raw[i]);
+  }
+
+  // 确定水平
+  let levelKey;
+  if (totalScore <= 29) levelKey = 'weak';
+  else if (totalScore <= 39) levelKey = 'average';
+  else levelKey = 'good';
+
+  const interp = interpretations[levelKey];
+
+  // 显示总分
+  document.getElementById('scoreTotal').textContent = totalScore;
+
+  // 区间定位条：范围 10—50
+  const markerPos = Math.max(0, Math.min(100, ((totalScore - 10) / 40) * 100));
+  document.getElementById('spectrumMarker').style.left = markerPos + '%';
+
+  // 结果卡片
+  document.getElementById('resultCard').innerHTML =
+    '<span class="category-tag ' + interp.tagClass + '">' + interp.category + '（' + totalScore + ' 分）</span>' +
+    '<div class="interpretation">' + interp.text + '</div>';
+
+  // 维度分析
+  let dimHtml = '';
+  DIMENSIONS.forEach(dim => {
+    const score = dim.items.reduce((sum, q) => sum + convertScore(q, raw[q]), 0);
+    const isWeak = score <= 6;
+    const pct = (score / 10) * 100;
+    dimHtml +=
+      '<div class="dim-row">' +
+        '<div class="dim-top">' +
+          '<span class="dim-name">' + dim.name + '</span>' +
+          '<span class="dim-score">' + score + ' / 10' + (isWeak ? '<span class="weak-tag">需补强</span>' : '') + '</span>' +
+        '</div>' +
+        '<div class="dim-bar-bg"><div class="dim-bar-fill' + (isWeak ? ' weak' : '') + '" data-pct="' + pct + '"></div></div>' +
+        '<div class="dim-advice' + (isWeak ? ' show' : '') + '">' + dimAdvice[dim.key] + '</div>' +
+      '</div>';
+  });
+  document.getElementById('dimList').innerHTML = dimHtml;
+
+  // 动画填充维度条
+  setTimeout(() => {
+    document.querySelectorAll('#dimList .dim-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 100);
+
+  // 单题预警
+  const warnings = [];
+  if (raw[9] <= 2) {
+    warnings.push({
+      title: '情绪与睡眠状态需关注',
+      text: '第 9 题显示你最近一个月的睡眠与情绪状态值得留意。培训后建议与项目心理负责人或 EAP 个别沟通，获得针对性的支持。'
+    });
+  }
+  if (raw[7] >= 4) {
+    warnings.push({
+      title: '对家庭的愧疚感较重',
+      text: '第 7 题提示"不能常伴家人"带来的愧疚感较重。可重点练习"愧疚感认知重构"与家庭沟通节律设计。'
+    });
+  }
+  if (raw[4] <= 2) {
+    warnings.push({
+      title: '求助意愿偏低',
+      text: '第 4 题提示主动求助的意愿偏低。可在培训中强化"求助是能力而非软弱"的认知，从小范围开始练习。'
+    });
+  }
+
+  const warningSection = document.getElementById('warningSection');
+  if (warnings.length > 0) {
+    warningSection.innerHTML = warnings.map(w =>
+      '<div class="warning-card"><h4>' + w.title + '</h4><p>' + w.text + '</p></div>'
+    ).join('');
+    warningSection.style.display = 'block';
+  } else {
+    warningSection.innerHTML = '';
+    warningSection.style.display = 'none';
+  }
+
+  // 提示卡片
+  document.getElementById('tipCard').innerHTML =
+    '<h4>给 你 的 一 点 建 议</h4>' +
+    '<p>' + tips[levelKey] + '</p>';
+
+  // 显示结果区
+  document.getElementById('results').classList.add('show');
+
+  setTimeout(() => {
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 150);
+}
+
+// ===== 重新测评 =====
+function retryQuiz() {
+  document.querySelectorAll('#quizForm input[type="radio"]').forEach(input => {
+    input.checked = false;
+  });
+  document.querySelectorAll('.question-item').forEach(item => {
+    item.classList.remove('answered', 'incomplete');
+  });
+  document.getElementById('results').classList.remove('show');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
